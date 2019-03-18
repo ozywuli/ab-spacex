@@ -1,9 +1,17 @@
 .grid-item {
-  flex: 0 0 33.33%;
+  flex: 0 0 100%;
   display: flex;
   justify-content: center;
   align-items: stretch;
   padding: 1.8rem;
+
+  @media all and (min-width: 600px) {
+    flex: 0 0 50%;
+  }
+
+  @media all and (min-width: 900px) {
+    flex: 0 0 33.33%;
+  }
 }
 
 .grid-item-title {

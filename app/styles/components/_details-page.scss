@@ -1,13 +1,16 @@
 .detail-page {
-  display: flex;
-  align-items: center;
   margin: -1.8rem;
+  @media all and (min-width: 600px) {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .detail-page-block {
-  flex: 0 0 50%;
   height: 700px;
-
+  @media all and (min-width: 600px) {
+    flex: 0 0 50%;
+  }
 }
 
 .detail-page-subblock {
