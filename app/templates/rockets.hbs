@@ -1,1 +1,44 @@
+{{grid-controls
+  active=layout
+  toggle=(action "toggleLayout")
+}}
+
 {{outlet}}
+
+{{#if (eq layout "grid")}}
+  {{#grid-group}}
+    {{#each model as |item|}}
+      {{#grid-item data=item}}
+        {{#link-to "rockets" class="el-btn el-btn--sm el-btn--shadow"}}
+          View Detail
+        {{/link-to}}
+        <a
+          href={{item.articleLink}}
+          class="el-btn el-btn--sm el-btn--shadow"
+          target="_blank"
+          rel="noopener"
+        >
+          View Rocket
+        </a>
+      {{/grid-item}}
+    {{/each}}
+  {{/grid-group}}
+{{else}}
+  {{#list-group}}
+    {{#each model as |item|}}
+      {{#list-item data=item}}
+        {{#link-to "rockets" class="el-btn el-btn--sm"}}
+          View Detail
+        {{/link-to}}
+        <a
+          href={{item.articleLink}}
+          class="el-btn el-btn--sm"
+          target="_blank"
+          rel="noopener"
+        >
+          View Rocket
+        </a>
+      {{/list-item}}
+    {{/each}}
+  {{/list-group}}
+{{/if}}
