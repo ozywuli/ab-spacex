@@ -1,0 +1,23 @@
+{{!-- Nav buttons --}}
+<div class="btn-group">
+  {{#link-to "launches" class="el-btn el-btn--blue"}}Launches{{/link-to}}
+  {{#link-to "rockets" class="el-btn el-btn--blue"}}Rockets{{/link-to}}
+</div>{{!-- / Nav buttons --}}
+
+{{!-- Radio buttons --}}
+<div class="radio-group">
+  {{#el-radio
+    active=active
+    name="grid"
+    toggle=toggle
+  }}
+    {{inline-svg "squares"}}
+  {{/el-radio}}
+  {{#el-radio
+    active=active
+    name="list"
+    toggle=toggle
+  }}
+    {{inline-svg "list"}}
+  {{/el-radio}}
+</div>{{!-- / Radio buttons --}}
