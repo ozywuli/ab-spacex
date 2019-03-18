@@ -9,6 +9,7 @@ const Router = EmberRouter.extend({
 Router.map(function() {
   this.route('launches');
   this.route('rockets');
+  this.route('launches-details', { path: '/launches/:id' });
 });
 
 export default Router;

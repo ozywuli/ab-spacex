@@ -1,0 +1,31 @@
+<div class="detail-page">
+  <div class="detail-page-block">
+    <div class="detail-page-img detail-page-subblock">
+      <div class="box-shadow bg-dark">
+        <img src={{imgUrl}} alt="" class="detail-page-img-el">
+      </div>
+    </div>
+  </div>
+  <div class="detail-page-block">
+    <div class="detail-page-description detail-page-subblock">
+      <div class="box-shadow box-spacing overflow-y-scroll">
+        <h2 class="detail-page-block-title">Description</h2>
+        {{#if data.description}}
+          <p>{{data.description}}</p>
+        {{else}}
+          <p>No description</p>
+        {{/if}}
+      </div>
+    </div>
+    <div class="detail-page-comments detail-page-subblock">
+      <div class="box-shadow box-spacing">
+        <h2 class="detail-page-block-title">Comments</h2>
+        {{#if comments}}
+          <p>{{comments}}</p>
+        {{else}}
+          {{loader-icon}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>

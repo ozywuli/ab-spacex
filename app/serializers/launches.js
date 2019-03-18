@@ -17,4 +17,18 @@ export default DS.JSONAPISerializer.extend({
       ))
     }
   },
+  normalizeFindRecordResponse(store, type, payload) {
+    return {
+      data: {
+        id: `${payload.flight_number}`,
+        type: type.modelName,
+        attributes: {
+          title: payload.mission_name,
+          imgUrl: payload.links.mission_patch,
+          articleLink: payload.links.article_link,
+          description: payload.details,
+        }
+      }
+    }
+  },
 });

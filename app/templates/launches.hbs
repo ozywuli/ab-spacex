@@ -7,7 +7,7 @@
   {{#grid-group}}
     {{#each model as |item|}}
       {{#grid-item data=item}}
-        {{#link-to "launches" class="el-btn el-btn--sm el-btn--shadow"}}
+        {{#link-to "launches-details" item class="el-btn el-btn--sm el-btn--shadow"}}
           View Detail
         {{/link-to}}
         <a
@@ -25,7 +25,7 @@
   {{#list-group}}
     {{#each model as |item|}}
       {{#list-item data=item}}
-        {{#link-to "launches" class="el-btn el-btn--sm"}}
+        {{#link-to "launches-details" item class="el-btn el-btn--sm"}}
           View Detail
         {{/link-to}}
         <a
