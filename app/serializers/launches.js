@@ -1,5 +1,11 @@
 import DS from 'ember-data';
 
+/**
+ * Returns JSON API shape
+ * @param {object} attrs - attrs object
+ * @param {object} type - type object
+ * @returns {object}
+ */
 function mapLaunches(attrs, type) {
   return {
     id: `${attrs.flight_number}`,

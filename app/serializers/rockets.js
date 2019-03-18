@@ -1,5 +1,11 @@
 import DS from 'ember-data';
 
+/**
+ * Returns JSON API shape
+ * @param {object} attrs - attrs object
+ * @param {object} type - type object
+ * @returns {object}
+ */
 function mapRockets(attrs, type) {
   return {
     id: `${attrs.rocket_id}`,

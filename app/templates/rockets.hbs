@@ -1,17 +1,22 @@
+{{!-- Grid controls --}}
 {{grid-controls
   active=layout
   toggle=(action "toggleLayout")
 }}
 
-{{outlet}}
-
-{{#liquid-if (eq layout "grid")}}
+{{#liquid-if isGrid class="grid"}}
+  {{!-- Grid group --}}
   {{#grid-group}}
+    {{!-- Loop model --}}
     {{#each model as |item|}}
+      {{!--Grid item --}}
       {{#grid-item data=item}}
+        {{!-- View detail button --}}
         {{#link-to "rockets-details" item class="el-btn el-btn--sm"}}
           View Detail
         {{/link-to}}
+
+        {{!-- View rocket page button --}}
         <a
           href={{item.articleLink}}
           class="el-btn el-btn--sm el-btn--shadow"
@@ -24,12 +29,18 @@
     {{/each}}
   {{/grid-group}}
 {{else}}
+  {{!-- List group --}}
   {{#list-group}}
+    {{!-- Loop model --}}
     {{#each model as |item|}}
+      {{!-- List item --}}
       {{#list-item data=item}}
+        {{!-- View detail button --}}
         {{#link-to "rockets-details" item class="el-btn el-btn--sm"}}
           View Detail
         {{/link-to}}
+
+        {{!-- View rocket page button --}}
         <a
           href={{item.articleLink}}
           class="el-btn el-btn--sm"
