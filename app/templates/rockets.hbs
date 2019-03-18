@@ -9,7 +9,7 @@
   {{#grid-group}}
     {{#each model as |item|}}
       {{#grid-item data=item}}
-        {{#link-to "rockets" class="el-btn el-btn--sm el-btn--shadow"}}
+        {{#link-to "rockets-details" item class="el-btn el-btn--sm"}}
           View Detail
         {{/link-to}}
         <a
@@ -27,7 +27,7 @@
   {{#list-group}}
     {{#each model as |item|}}
       {{#list-item data=item}}
-        {{#link-to "rockets" class="el-btn el-btn--sm"}}
+        {{#link-to "rockets-details" item class="el-btn el-btn--sm"}}
           View Detail
         {{/link-to}}
         <a

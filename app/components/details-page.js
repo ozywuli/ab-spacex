@@ -15,6 +15,7 @@ export default Component.extend({
 
   async didInsertElement() {
     let comments = await $.getJSON(`/${this.id}/${this.data.id}/comments`);
+    if (this.isDestroyed) return;
     this.set('comments', comments.data.attributes.body);
   },
 });

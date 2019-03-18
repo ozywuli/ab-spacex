@@ -17,4 +17,19 @@ export default DS.JSONAPISerializer.extend({
       ))
     }
   },
+  normalizeFindRecordResponse(store, type, payload) {
+    return {
+      data: {
+        id: `${payload.rocket_id}`,
+        type: type.modelName,
+        attributes: {
+          noId: payload.id,
+          title: payload.rocket_name,
+          imgUrl: payload.flickr_images[0],
+          articleLink: payload.wikipedia,
+          description: payload.description,
+        }
+      }
+    }
+  },
 });
