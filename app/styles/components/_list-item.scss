@@ -1,0 +1,16 @@
+.list-item-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-item {
+  border: 1px solid #e3e8ee;
+  border-radius: 3px;
+  margin-bottom: 18px;
+  padding: 9px;
+}
+
+.list-item-title {
+  font-size: 1.6rem;
+}

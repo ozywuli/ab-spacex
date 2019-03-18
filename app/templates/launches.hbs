@@ -22,4 +22,21 @@
     {{/each}}
   {{/grid-group}}
 {{else}}
+  {{#list-group}}
+    {{#each model as |item|}}
+      {{#list-item data=item}}
+        {{#link-to "launches" class="el-btn el-btn--sm"}}
+          View Detail
+        {{/link-to}}
+        <a
+          href={{item.articleLink}}
+          class="el-btn el-btn--sm"
+          target="_blank"
+          rel="noopener"
+        >
+          View Launch
+        </a>
+      {{/list-item}}
+    {{/each}}
+  {{/list-group}}
 {{/if}}
