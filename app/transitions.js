@@ -1,5 +1,3 @@
-import grid from './transitions/grid';
-
 export default function() {
   this.transition(
     this.hasClass('grid'),
