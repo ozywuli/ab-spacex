@@ -3,7 +3,7 @@
   toggle=(action "toggleLayout")
 }}
 
-{{#if isGrid class="grid"}}
+{{#liquid-if isGrid class="grid"}}
   {{#grid-group}}
     {{#each model as |item|}}
       {{#grid-item data=item}}
@@ -39,4 +39,4 @@
       {{/list-item}}
     {{/each}}
   {{/list-group}}
-{{/if}}
+{{/liquid-if}}

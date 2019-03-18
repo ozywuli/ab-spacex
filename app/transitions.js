@@ -1,9 +1,10 @@
-export default function(){
-  // Add your transitions here, like:
-  //   this.transition(
-  //     this.fromRoute('people.index'),
-  //     this.toRoute('people.detail'),
-  //     this.use('toLeft'),
-  //     this.reverse('toRight')
-  //   );
+import grid from './transitions/grid';
+
+export default function() {
+  this.transition(
+    this.hasClass('grid'),
+    this.toValue(true),
+    this.use('grid', {duration: 250}),
+    this.reverse('grid', {duration: 250}),
+  )
 }
