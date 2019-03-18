@@ -1,1 +1,25 @@
-{{outlet}}
+{{grid-controls
+  active=layout
+  toggle=(action "toggleLayout")
+}}
+
+{{#if isGrid class="grid"}}
+  {{#grid-group}}
+    {{#each model as |item|}}
+      {{#grid-item data=item}}
+        {{#link-to "launches" class="el-btn el-btn--sm el-btn--shadow"}}
+          View Detail
+        {{/link-to}}
+        <a
+          href={{item.articleLink}}
+          class="el-btn el-btn--sm el-btn--shadow"
+          target="_blank"
+          rel="noopener"
+        >
+          View Launch
+        </a>
+      {{/grid-item}}
+    {{/each}}
+  {{/grid-group}}
+{{else}}
+{{/if}}

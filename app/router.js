@@ -8,6 +8,7 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('launches');
+  this.route('rockets');
 });
 
 export default Router;
