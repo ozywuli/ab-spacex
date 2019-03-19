@@ -21,6 +21,7 @@ export default Controller.extend({
      * @return {Void}
      */
     toggleLayout(style) {
+      if (!(style === 'grid' || style === 'list')) style = 'grid';
       this.set('layout', style);
     }
   }
