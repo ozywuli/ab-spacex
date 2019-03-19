@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { click, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | el-radio', function(hooks) {
@@ -23,4 +23,15 @@ module('Integration | Component | el-radio', function(hooks) {
 
     assert.equal(this.element.textContent.trim(), 'template block text');
   });
+
+  test('isActive should return a boolean value', async function(assert) {
+    await render(hbs`{{el-radio}}`);
+
+    await click(this.element);
+
+    assert.equal(
+      this.element.querySelector('button').classList.contains('el-radio--active'),
+      true
+    );
+  })
 });
