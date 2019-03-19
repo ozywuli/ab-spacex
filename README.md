@@ -1,12 +1,14 @@
-# spacex
+# spacex dashboard
 
 [Live Demo](https://secure-wildwood-40137.herokuapp.com/launches)
 
+(it's hosted on a free Heroku dyno, which may take some time to spin up)
+
 ## Prerequisites
 
-Node 10.15.3
-NPM 6.4.1
-Ember CLI 3.8.1
+Node 10.15.3<br>
+NPM 6.4.1<br>
+Ember CLI 3.8.1<br>
 
 ## Installation
 
@@ -14,7 +16,7 @@ Ember CLI 3.8.1
 * `cd ab-spacex`
 * `npm install`
 
-(Tested fresh installs on Mac and Windows WLS. Let me know if you run into any issues)
+(Tested fresh installs on Mac and Windows WLS. Let me know if you run into any issues.)
 
 ## Running / Development
 
@@ -35,7 +37,7 @@ Ember is a fantastic SPA framework, especially for a project like this one where
 
 __Build a dashboard that shows Launches and Rockets using the Space X Api, you can find detail about api here__
 
-Ember provides two tools out of the box (as far as I know) that help developers to consume API resources. One is jquery, which has methods like `.ajax` and `.getJSON` that help you make and handle most ajax requests. The other tool is Ember Data, a more complicated tool that provides adapters and serializers for managing data from any sources. I was planning on avoiding Ember Data altogether because I didn't have much experience with it and just use jquery to make simple jquery requests. But then I read the next requirement:
+Ember provides two tools out of the box (as far as I know) that help developers to consume API resources. One is Jquery, which has methods like `.ajax` and `.getJSON` that help you make and handle most ajax requests. The other is Ember Data, a more complicated tool that provides adapters and serializers for managing data from any sources. I was planning on avoiding Ember Data altogether because I didn't have much experience with it and instead just use jquery to make simple ajax requests. But then I read the next requirement:
 
 __Create a data model for a ‘Launch’ and a ‘Rocket’. Also make sure to include any relationships between Launches and the Rocket’s used.__
 
@@ -43,10 +45,11 @@ This sounded to me like Ember Data should be used since it provides features lik
 
 __There should be 2 tabs: launches and rockets like. Clicking the Launch tab should render a list of cards for launches and clicking the Rockets tab should render a list of rockets. (Figure 1)__
 
-I considered keeping the "Launches" and "Rockets" index on the same route so that when user clicks on either of the buttons, Ember would conditionally check which button is click and display the corresponding data. But I decided to separate them into two routes and have Ember Routing handle showing either "Launches" or "Rockets" depending on what button the user clicks. This has at least two advantages:
+I considered keeping the Launches and Rockets index on the same route so that when user clicks on either of the buttons, Ember would check which button is click and display the corresponding data. But I decided to separate them into two routes and have Ember Routing handle showing either Launches or Rockets depending on what button the user clicks. This has at least two advantages:
 
-1. When user only looks at "Launches" and not "Rockets", the app only consumes one API endpoint, so the app ends up loading less data and provides a more performant experience for the user. If "Launches" and "Rockets" were bundled together in a single route, two endpoints would have to be consumed. Of course, you can write code that conditionally loads the endpoints, but Ember's route files provide a cleaner way to separate their loadings.
-2. Users can use their browser history and navigate the "Launches" and "Rockets" views. This is especially advantageous for power users who need to move fast.
+1. When user only looks at the Launches view, the app only consumes one API endpoint, so the app ends up loading less data and provides a more performant experience for the user. If Launches and Rockets were bundled together in a single route, two endpoints would have to be consumed. Of course, you can write code that conditionally loads the endpoints, but Ember's route files provide a cleaner way to separate how they load.
+
+2. Users can use their browser history and navigate the Launches and Rockets views. This is especially advantageous for power users who need to move around fast.
 
 __ Below the tab are cards that should render the image of the launch, description, and two buttons: View Detail, View Rocket or View Launches__
 
@@ -65,6 +68,15 @@ For this part of the exercise, I used query params to control whether to show ei
 This is also where I make first use of [Liquid Fire](https://ember-animation.github.io/liquid-fire/), which lets developers create smoother transitions between routes and states. When users tab between layout views, the old elements are faded out and then new elements fade and slide in one by one for a smooth experience.
 
 If I had more time to work on this, at least one thing I would do to improve the animations is to animate only those cards/items within the viewport. As of now, all of them are animated, even those not in view, which is an unnecessary resource drain.
+
+## Tests
+
+I wrote a few basic tests for computed properties in these files:
+
+- `el-radio-test`
+- `grid-item-test`
+- `launches-test`
+- `details-page-test`
 
 ## Notes on CSS
 
