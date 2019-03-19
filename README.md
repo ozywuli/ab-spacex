@@ -1,57 +1,81 @@
 # spacex
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+[Live Demo](https://secure-wildwood-40137.herokuapp.com/launches)
 
 ## Prerequisites
 
-You will need the following things properly installed on your computer.
-
-* [Git](https://git-scm.com/)
-* [Node.js](https://nodejs.org/) (with npm)
-* [Ember CLI](https://ember-cli.com/)
-* [Google Chrome](https://google.com/chrome/)
+Node 10.15.3
+NPM 6.4.1
+Ember CLI 3.8.1
 
 ## Installation
 
-* `git clone <repository-url>` this repository
-* `cd spacex`
+* `git clone git@github.com:ozywuli/ab-spacex.git`
+* `cd ab-spacex`
 * `npm install`
+
+(Tested fresh installs on Mac and Windows WLS. Let me know if you run into any issues)
 
 ## Running / Development
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
-
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
+* `npm start`
+* Visit app at [http://localhost:4200](http://localhost:4200).
+* Visit tests at [http://localhost:4200/tests](http://localhost:4200/tests).
 
 ### Running Tests
 
 * `ember test`
 * `ember test --server`
 
-### Linting
+## Initial Thoughts
 
-* `npm run lint:hbs`
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
+Ember is a fantastic SPA framework, especially for a project like this one where you need to consume API resources and provide multiple dynamic views. Unfortunately, I have not had the opportunity to develop in Ember for over a year, so I knew beforehand it'd be slow going if I decide to do this assignment with Ember. I wanted to use React because that's what I've been working with most for the past year, but since AuditBoard is an Ember shop, I figured it'd be better to use the tools of my potential future employer, and get comfortable with it fast.
 
-### Building
+## Approaches
 
-* `ember build` (development)
-* `ember build --environment production` (production)
+__Build a dashboard that shows Launches and Rockets using the Space X Api, you can find detail about api here__
 
-### Deploying
+Ember provides two tools out of the box (as far as I know) that help developers to consume API resources. One is jquery, which has methods like `.ajax` and `.getJSON` that help you make and handle most ajax requests. The other tool is Ember Data, a more complicated tool that provides adapters and serializers for managing data from any sources. I was planning on avoiding Ember Data altogether because I didn't have much experience with it and just use jquery to make simple jquery requests. But then I read the next requirement:
 
-Specify what it takes to deploy your app.
+__Create a data model for a ‘Launch’ and a ‘Rocket’. Also make sure to include any relationships between Launches and the Rocket’s used.__
 
-## Further Reading / Useful Links
+This sounded to me like Ember Data should be used since it provides features like models for the front end. At my previous two companies, we preferred handling model logic on the server/backend and just have the front end be a dumb consumer of resources. This is simple and clearly demarcates the front and back ends. But one advantage of using Ember Data is that it makes it easier for the client app to save data for offline use, which can be a market advantage for enterprise applications (such as those made at AuditBoard).
 
-* [ember.js](https://emberjs.com/)
-* [ember-cli](https://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+__There should be 2 tabs: launches and rockets like. Clicking the Launch tab should render a list of cards for launches and clicking the Rockets tab should render a list of rockets. (Figure 1)__
+
+I considered keeping the "Launches" and "Rockets" index on the same route so that when user clicks on either of the buttons, Ember would conditionally check which button is click and display the corresponding data. But I decided to separate them into two routes and have Ember Routing handle showing either "Launches" or "Rockets" depending on what button the user clicks. This has at least two advantages:
+
+1. When user only looks at "Launches" and not "Rockets", the app only consumes one API endpoint, so the app ends up loading less data and provides a more performant experience for the user. If "Launches" and "Rockets" were bundled together in a single route, two endpoints would have to be consumed. Of course, you can write code that conditionally loads the endpoints, but Ember's route files provide a cleaner way to separate their loadings.
+2. Users can use their browser history and navigate the "Launches" and "Rockets" views. This is especially advantageous for power users who need to move fast.
+
+__ Below the tab are cards that should render the image of the launch, description, and two buttons: View Detail, View Rocket or View Launches__
+
+This part is where I first add a bit of animation. When user hovers over a card, two buttons fade and slide up into view.
+
+__Clicking on View Detail should go to another screen to view the launch or the rocket detail__
+
+Here I created another dynamic segment for the "Launches" and "Rockets" details page. In addition to consuming a 3rd party API, the details page also needed to retrieve comments from a local store. How I might approach this problem if I was running a local server would be by creating an endpoint that proxies to the SpaceX API, retrieves the resources, and then merges it the corresponding comments data on the server. Then it just feeds it all as one resource to the front end.
+
+However, the requirements recommend using Mirage to generate fake data and API stubs since I don't have access to the server. I don't have enough experience with Mirage to mimic my server solution, so I ended up just creating separate endpoints for the comments data. When users open a details page, the app first loads the 3rd party resource related to that detail. Afterwards, another request is made to the mirage service that returns comments data related to the specific detail. The request originates from the component level after it has mounted. While the comments resource is being fetched, a loading icon animates until the resource is consumed.
+
+__There should be 2 icons for switching between table view and list view__
+
+For this part of the exercise, I used query params to control whether to show either table/grid or list view. This has the advantage of persisting state of the layout views to the browser history and lets users navigate back and forth between layout views. I also considered using localStorage to save the user's view setting in combination with query params.
+
+This is also where I make first use of [Liquid Fire](https://ember-animation.github.io/liquid-fire/), which lets developers create smoother transitions between routes and states. When users tab between layout views, the old elements are faded out and then new elements fade and slide in one by one for a smooth experience.
+
+If I had more time to work on this, at least one thing I would do to improve the animations is to animate only those cards/items within the viewport. As of now, all of them are animated, even those not in view, which is an unnecessary resource drain.
+
+## Notes on CSS
+
+I use SASS to help manage the CSS for this assignment. All styles are written from scratch and related styles are grouped by directories (in this case there are only two: components and settings).
+
+If I had more time, I'd do at least the following to improve the styles:
+
+- Identify and DRY repeated styles like colors, font sizes, and media queries using a combination of variables, mixins, and custom functions.
+- Create more util classes to better compose bigger and more specific classes
+- Create more specific setting files
+
+## Conclusion
+
+That's all. I hope to hear back from you soon. I know that I may not have all the experience you are looking for, but I'm excited to learn and grow and expand my skills. I'm also excited to join a new team and help deliver great products on the web!
