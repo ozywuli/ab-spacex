@@ -1,6 +1,8 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import $ from 'jquery';
+import { Promise } from 'rsvp';
+import { later } from '@ember/runloop';
 
 export default Component.extend({
   className: 'detail-page',
@@ -17,14 +19,18 @@ export default Component.extend({
 
   comments: null,
 
-  async didInsertElement() {
+  didInsertElement() {
     // Make a request for comments
-    let comments = await $.getJSON(`/${this.id}/${this.data.id}/comments`);
-
-    // Return if component is destroyed before the request completes
-    if (this.isDestroyed) return;
-
-    // After request completes, set the comments data a
-    this.set('comments', comments.data.attributes.body);
+    return new Promise((resolve) => {
+      $.getJSON(`/${this.id}/${this.data.id}/comments`).then((comment) => {
+        // Return if component is destroyed before the request completes
+        if (this.isDestroyed) resolve();
+        later(this, () => {
+          // After request completes, set the comments data a
+          this.set('comments', comment.data.attributes.body);
+          resolve();
+        })
+      })
+    });
   },
 });
