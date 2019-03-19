@@ -51,21 +51,21 @@ I considered keeping the Launches and Rockets index on the same route so that wh
 
 2. Users can use their browser history and navigate the Launches and Rockets views. This is especially advantageous for power users who need to move around fast.
 
-__ Below the tab are cards that should render the image of the launch, description, and two buttons: View Detail, View Rocket or View Launches__
+__Below the tab are cards that should render the image of the launch, description, and two buttons: View Detail, View Rocket or View Launches__
 
 This part is where I first add a bit of animation. When user hovers over a card, two buttons fade and slide up into view.
 
 __Clicking on View Detail should go to another screen to view the launch or the rocket detail__
 
-Here I created another dynamic segment for the "Launches" and "Rockets" details page. In addition to consuming a 3rd party API, the details page also needed to retrieve comments from a local store. How I might approach this problem if I was running a local server would be by creating an endpoint that proxies to the SpaceX API, retrieves the resources, and then merges it the corresponding comments data on the server. Then it just feeds it all as one resource to the front end.
+Here I created another dynamic segment for the Launches and Rockets details page. In addition to consuming a 3rd party API, the details page also needs to retrieve comments from a local store. How I might approach this problem if I was running a server would be by creating an endpoint that proxies to the SpaceX API, retrieves the resources, and then merges it the corresponding comments data on the server. Then it just feeds it all as one resource to the front end.
 
-However, the requirements recommend using Mirage to generate fake data and API stubs since I don't have access to the server. I don't have enough experience with Mirage to mimic my server solution, so I ended up just creating separate endpoints for the comments data. When users open a details page, the app first loads the 3rd party resource related to that detail. Afterwards, another request is made to the mirage service that returns comments data related to the specific detail. The request originates from the component level after it has mounted. While the comments resource is being fetched, a loading icon animates until the resource is consumed.
+However, the requirements recommend using Mirage to generate fake data and API stubs since I don't have access to the server. I don't have enough experience with Mirage to mimic my server solution, so I ended up just creating separate endpoints for the comments data. When users open a details page, the app first loads the 3rd party resource related to that detail. Afterwards, another request is made to the Mirage service that returns comments data related to the specific detail. The request originates from the component level after it has mounted. While the comments resource is being fetched, a loading icon animates until the resource is consumed.
 
 __There should be 2 icons for switching between table view and list view__
 
 For this part of the exercise, I used query params to control whether to show either table/grid or list view. This has the advantage of persisting state of the layout views to the browser history and lets users navigate back and forth between layout views. I also considered using localStorage to save the user's view setting in combination with query params.
 
-This is also where I make first use of [Liquid Fire](https://ember-animation.github.io/liquid-fire/), which lets developers create smoother transitions between routes and states. When users tab between layout views, the old elements are faded out and then new elements fade and slide in one by one for a smooth experience.
+This is also where I make first use of [Liquid Fire](https://ember-animation.github.io/liquid-fire/), which lets Ember developers create smoother transitions between routes and states. When users tab between layout views, the old elements are faded out and then new elements fade and slide in one by one for a smooth experience.
 
 If I had more time to work on this, at least one thing I would do to improve the animations is to animate only those cards/items within the viewport. As of now, all of them are animated, even those not in view, which is an unnecessary resource drain.
 
